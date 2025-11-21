@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import logging.config
 import os
 import tempfile
+import environ
+
+env = environ.Env(DJANGO_DEBUG=(bool, False))
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -23,13 +26,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7jj1ni6=mw867=jwr1(cr64()cdcj(igmj^@=7bc_s#xpwf8$m'
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS')
+CSRF_TRUSTED_ORIGINS = env.list('DJANGO_CSRF_TRUSTED_ORIGIN')
 
 # Application definition
 
